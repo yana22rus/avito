@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<link type="text/css" href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<body>
+
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+
+    <form method="POST" enctype=multipart/form-data>
+
+        <p><input type="text" name="title" placeholder="Название объявления"></p>
+        <p><input type="file" name="file"></p>
+        <p><input type="text" name="price" placeholder="Цена"></p>
+        <p><textarea id="story" name="description" rows="5" cols="33"></textarea></p>
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+
+</body>
+</html>
