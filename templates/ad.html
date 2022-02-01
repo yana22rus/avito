@@ -1,9 +1,5 @@
-<!doctype html>
-<html>
-<head>
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
         <p>Название товара</p>
         <h2>{{title}}</h2>
         <img src="{{url_for('static', filename=img)}}">
@@ -11,5 +7,4 @@
         <h2>{{price}}</h2>
         <p>Описание</p>
         <h2>{{description}}</h2>
-</body>
-</html>
+{% endblock %}

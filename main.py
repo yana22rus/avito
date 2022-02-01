@@ -14,7 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/qwe/ad.db'
 db = SQLAlchemy(app)
 
 
-class ad(db.Model):
+class Products(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=True)
@@ -22,8 +22,8 @@ class ad(db.Model):
     price = db.Column(db.Integer, nullable=True)
     description = db.Column(db.String, nullable=True)
 
-    def __repr__(self):
-        return f"{self.ad}"
+    # def __repr__(self):
+    #     return f"{self.ad}"
 
 
 ALLOWED_EXTENSIONS = {"png","jpg","jpeg"}
@@ -50,7 +50,7 @@ def upload_file():
             price = request.form["price"]
             description = request.form["description"]
 
-            add_data = ad(
+            add_data = Products(
 
                 title=title,
                 file=file,
@@ -69,6 +69,16 @@ def upload_file():
 
     return render_template("uploads.html")
 
+
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
+def show_post(post_id):
+    if request.method == "GET":
+
+        res = Products.query.all()
+
+        img = os.path.join(UPLOAD_FOLDER, res[post_id - 1].file)
+
+        return render_template("ad.html", title=res[post_id - 1].title, img=img, price=res[post_id - 1].price, description=res[post_id - 1].description)
 
 
 if __name__ == '__main__':
